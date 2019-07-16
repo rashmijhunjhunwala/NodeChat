@@ -5,7 +5,7 @@ const socketIO = require('socket.io');
 const {generateMessage, generateLocationMessage} = require('./utils/message');
 const {isRealString} = require('./utils/validation');
 const {Users} = require('./utils/users');
-const favicon = require('express-favicon');
+var favicon = require('serve-favicon')
 const publicPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 3000;
 var app = express();
@@ -14,7 +14,8 @@ var io = socketIO(server);
 var users = new Users();
 
 app.use(express.static(publicPath));
-app.use(favicon(__dirname + '/public/favicon.png'));
+app.use(favicon(path.join(__dirname, '../public', 'favicon.ico')))
+//app.use(favicon(__dirname + '../public/favicon.ico'));
 io.on('connection', (socket) => {
   console.log('New user connected');
 
